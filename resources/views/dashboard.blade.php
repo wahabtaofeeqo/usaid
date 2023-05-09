@@ -37,7 +37,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class='py-3'>
+                    <div class='p-3'>
                         {{ $users->links() }}
                     </div>
                 </div>

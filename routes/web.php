@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@create');
+Route::post('register', 'MainController@register')->name('register');
+Route::get('proccessed', 'MainController@proccessed')->name('proccessed');
 
 Route::get('/dashboard', 'MainController@home')
     ->middleware(['auth'])->name('dashboard');
