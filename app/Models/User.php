@@ -40,4 +40,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function genCode() {
+        while (true) {
+            $code = random_int(100000, 999999);
+            if (!User::where('code', $code)->exists()) break;
+        }
+
+        return $code;
+    }
 }

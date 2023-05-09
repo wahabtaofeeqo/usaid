@@ -7,6 +7,8 @@ use App\Models\User;
 use Mail;
 use App\Mail\AccountCreated;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class MainController extends Controller
 {
@@ -26,8 +28,8 @@ class MainController extends Controller
             'title' => ['required','string', 'in:mr,mrs,miss'],
             'firstname' => ['required','string'],
             'lastname' => ['required','string'],
-            'phone' =>['required','string','min:0', 'unique:users,phone'],
-            'email' => ['required', 'unique:users,email', 'email', 'max:255', 'confirmed'],
+            'phone' =>['sometimes','string'],
+            'email' => ['required', 'email', 'max:255', 'confirmed'],
             'company' =>['required','string','max:255'],
             'designation' =>['required','string','max:255'],
         ]);
@@ -35,16 +37,22 @@ class MainController extends Controller
         try {
 
             // Prep
-            $code = rand(100, 9999);
+            $code = User::genCode();
             $input = $request->all();
             $input['code'] = $code;
             $input['name'] = $input['firstname'] . ' ' . $input['lastname'];
 
             // Create user
-            $user = User::firstOrCreate([
-                'email' => $input['email'],
-                'phone' => $input['phone']
-            ], $input);
+            $user = User::where([
+                'email' => $input['email']
+            ])->first();
+
+            if($user) {
+                $user->fill($input);
+            }
+            else {
+                $user = User::create($input);
+            }
 
             // Generate Qr
             $path = public_path('qrcode/' . $user->email);
@@ -52,7 +60,7 @@ class MainController extends Controller
 
             $filename = $path . '/file.png';
             QrCode::backgroundColor(255, 255, 0)->color(255, 0, 127)
-            ->format('png')->size(350)->generate(strval($code), $filename);
+                ->format('png')->size(350)->generate(strval($code), $filename);
 
             // Send email
             Mail::to($user)->send(new AccountCreated($user, $filename));
@@ -63,5 +71,13 @@ class MainController extends Controller
         catch (\Throwable $th) {
             return redirect('proccessed')->with('error', true);
         }
+    }
+
+    public function home(): Response
+    {
+        return Inertia::render('Dashboard', [
+            'status' => session('status'),
+            'users' => User::latest()->paginate(10),
+        ]);
     }
 }

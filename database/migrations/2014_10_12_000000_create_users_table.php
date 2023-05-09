@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('title');
             $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('phone')->nullable()->unique();
             $table->string('company');
             $table->string('designation');
             $table->timestamp('email_verified_at')->nullable();
