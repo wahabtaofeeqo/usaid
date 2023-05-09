@@ -15,6 +15,10 @@ class MainController extends Controller
     public function create()
     {
         return view('welcome');
+        // return Inertia::render('Welcome', [
+        //     'status' => session('status'),
+        //     'users' => User::latest()->paginate(10),
+        // ]);
     }
 
     public function proccessed()
@@ -73,10 +77,13 @@ class MainController extends Controller
         }
     }
 
-    public function home(): Response
+    public function home()
     {
-        return Inertia::render('Dashboard', [
-            'status' => session('status'),
+        // return Inertia::render('Dashboard', [
+        //     'status' => session('status'),
+        //     'users' => User::latest()->paginate(10),
+        // ]);
+        return view('dashboard', [
             'users' => User::latest()->paginate(10),
         ]);
     }

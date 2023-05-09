@@ -12,9 +12,7 @@
     <meta property="og:title" content="Investing in Development conference 2023" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{url()->current()}}" />
-    <meta property="og:image" content="{{ asset('assets/img/core-img/NEW1.png') }}" />
-    <meta property="og:description" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio nisi sequi possimus et modi ipsa.">
-
+    
     <style>
         body {
             height: 100%;
