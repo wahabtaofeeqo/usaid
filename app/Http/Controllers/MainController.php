@@ -15,10 +15,6 @@ class MainController extends Controller
     public function create()
     {
         return view('welcome');
-        // return Inertia::render('Welcome', [
-        //     'status' => session('status'),
-        //     'users' => User::latest()->paginate(10),
-        // ]);
     }
 
     public function proccessed()
