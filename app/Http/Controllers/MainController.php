@@ -25,13 +25,15 @@ class MainController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'title' => ['required','string', 'in:mr,mrs,miss'],
+            'division' => ['required','string'],
             'firstname' => ['required','string'],
             'lastname' => ['required','string'],
-            'phone' =>['sometimes','string'],
-            'email' => ['required', 'email', 'max:255', 'confirmed'],
-            'company' =>['required','string','max:255'],
-            'designation' =>['required','string','max:255'],
+            'shirt' =>['required','string'],
+            'email' => ['required', 'email', 'max:255'],
+            'jersey' =>['required','string'],
+            'allegy' =>['required','string'],
+            'diet' => 'required|string',
+            'location' => 'required|string'
         ]);
 
         try {
@@ -44,8 +46,7 @@ class MainController extends Controller
 
             // Create user
             $user = User::where([
-                'email' => $input['email']
-            ])->first();
+                'email' => $input['email']])->first();
 
             if($user) {
                 $user->fill($input);
@@ -68,17 +69,13 @@ class MainController extends Controller
             //
             return redirect('proccessed')->with('success', true);
         }
-        catch (\Throwable $th) {
+        catch (\Exception $e) {
             return redirect('proccessed')->with('error', true);
         }
     }
 
     public function home()
     {
-        // return Inertia::render('Dashboard', [
-        //     'status' => session('status'),
-        //     'users' => User::latest()->paginate(10),
-        // ]);
         return view('dashboard', [
             'users' => User::latest()->paginate(10),
         ]);

@@ -16,12 +16,15 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'code' => '101010',
-            'title' => 'Admin',
-            'company' => 'Admin',
+            'division' => 'Lagos',
+            'allegy' => 'None',
             'name' => 'Admin Admin',
             'password' => Hash::make('admin123#'),
             'email' => 'admin@yahoo.com',
-            'designation' => 'Admin Super'
+            'shirt' => 'M',
+            'diet' => 'None',
+            'jersey' => 'M',
+            'location' => 'VI'
         ]);
     }
 }

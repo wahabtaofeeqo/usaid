@@ -12,15 +12,9 @@
     <meta property="og:title" content="Investing in Development conference 2023" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{url()->current()}}" />
-    
-    <style>
-        body {
-            height: 100%;
-            background-color:  #152238;
-        }
-    </style>
+
 </head>
-<body>
+<body class="bg-dark">
     <div class="vh-100 d-flex align-items-center">
         <div class="col-md-4 mx-auto rounded shadown bg-white p-3">
 
@@ -33,14 +27,13 @@
 
             @if (session()->has('success'))
                 <h4>Congratulations!</h4>
-
                 <p>
                     An automated email confirming your registration has been sent to the email address provided.
                 </p>
             @endif
 
             <div class="text-center">
-                <a href="/" class="btn btn-info px-3 text-white">Back to Home</a>
+                <a href="/" class="btn btn-dark px-3 text-white">Back to Home</a>
             </div>
         </div>
     </div>

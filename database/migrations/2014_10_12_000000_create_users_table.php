@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->string('title');
+            $table->string('diet');
+            $table->string('division');
             $table->string('email')->unique();
             $table->string('phone')->nullable()->unique();
-            $table->string('company');
-            $table->string('designation');
+            $table->string('shirt');
+            $table->string('jersey');
+            $table->string('allegy');
+            $table->string('location');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
